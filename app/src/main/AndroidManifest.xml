@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".receiver.MediaPlayerReceiver">
+            <intent-filter>
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PAUSED" />
+                <action android:name="com.sonyericsson.music.TRACK_COMPLETED" />
+
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
