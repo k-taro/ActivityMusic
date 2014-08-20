@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by user1 on 2014/08/19.
+ * 位置情報を表す Activeandroid 用データモデル
  */
 @Table(name = "Locations")
 public class LocationData extends Model{
@@ -27,11 +28,20 @@ public class LocationData extends Model{
     @Column(name = "activity")
     public String activity;
 
-//    @Column(name = "musicId")
-//    public long musicId;
-
+    // MusicData とのリレーション（？）
     public List<MusicData> musics() {
         return getMany(MusicData.class, "id");
+    }
+
+    public LocationData(){
+        super();
+    }
+
+    public LocationData(Timestamp timestamp, int lat, int lon, String activety){
+        this.timestamp = timestamp;
+        this.lat = lat;
+        this.lon = lon;
+        this.activity = activety;
     }
 
 }

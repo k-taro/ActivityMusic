@@ -1,7 +1,6 @@
 package com.keitaro.activitymusic;
 
 import android.app.Activity;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,11 +9,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.activeandroid.query.Select;
-import com.activeandroid.util.SQLiteUtils;
-import com.keitaro.activitymusic.databese.MySQLiteOpenHelper;
 import com.keitaro.activitymusic.databese.model.MusicData;
 
-import java.io.File;
 import java.util.List;
 
 
@@ -25,8 +21,8 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my);
- //       SQLiteUtils.execSql("drop database ActivityMusic");
 
+        // ボタンをタップすると、データベース上の楽曲情報をログに表示する
         Button b = (Button) this.findViewById(R.id.button1);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,19 +33,6 @@ public class MyActivity extends Activity {
                 }
             }
         });
-
-//        b = (Button) this.findViewById(R.id.button_delete);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MySQLiteOpenHelper hlpr = new MySQLiteOpenHelper(getApplicationContext());
-//                SQLiteDatabase musicDatabase = hlpr.getWritableDatabase();
-//                File file = new File(musicDatabase.getPath());
-//                if(file.exists()) {
-//                    file.delete();
-//                }
-//            }
-//        });
     }
 
 

@@ -6,7 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by user1 on 2014/08/19.
+ *
+ * 楽曲情報のデータベース用の SQLiteOpenHelper。
+ * Activeandroid を用いることにしたので使われない。
+ *
  */
+@Deprecated
 public class MySQLiteOpenHelper extends SQLiteOpenHelper{
     static final String DB = "aaaactivityMusic.db";
     static final int DB_VERSION = 1;

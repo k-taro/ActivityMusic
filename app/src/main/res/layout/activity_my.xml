@@ -13,17 +13,17 @@
         android:layout_height="fill_parent"
         android:id="@+id/linearLayout"
         android:orientation="vertical">
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="show db to log"/>
-<!--
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="delete db"/>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="show db to log"/>
+        <!--
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="delete db"/>
         -->
     </LinearLayout>
 </RelativeLayout>
