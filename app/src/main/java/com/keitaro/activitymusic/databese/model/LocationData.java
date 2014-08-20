@@ -16,14 +16,14 @@ public class LocationData extends Model{
 //    @Column(name = "id", unique = true, notNull = true)
 //    public int id;
 
-    @Column(name = "time", notNull = true)
-    public Timestamp timestamp;
+    @Column(name = "timestamp", notNull = true)
+    public long timestamp;
 
     @Column(name = "lat", notNull = true)
-    public int lat;
+    public double lat;
 
     @Column(name = "lon", notNull = true)
-    public int lon;
+    public double lon;
 
     @Column(name = "activity")
     public String activity;
@@ -37,7 +37,7 @@ public class LocationData extends Model{
         super();
     }
 
-    public LocationData(Timestamp timestamp, int lat, int lon, String activety){
+    public LocationData(long timestamp, int lat, int lon, String activety){
         this.timestamp = timestamp;
         this.lat = lat;
         this.lon = lon;
