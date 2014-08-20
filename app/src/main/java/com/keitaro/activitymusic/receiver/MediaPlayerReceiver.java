@@ -5,13 +5,20 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
+import com.keitaro.activitymusic.databese.MySQLiteOpenHelper;
+import com.keitaro.activitymusic.databese.model.MusicData;
 
+import java.io.File;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,10 +38,10 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
 
 
         Log.d("receiveMusic", intent.getAction());
-        for(String key : keySet) {
-            Log.d("receiveMusic", key);
-            Log.d("receiveMusic", "    : "+bundle.getString(key));
-        }
+//        for(String key : keySet) {
+//            Log.d("receiveMusic", key);
+//            Log.d("receiveMusic", "    : "+bundle.getString(key));
+//        }
 
 
         PendingIntent contentIntent = PendingIntent.getActivity(
@@ -68,5 +75,31 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
         // Notificationを作成して通知
         manager.notify(0, builder.build());
 
+//        MySQLiteOpenHelper hlpr = new MySQLiteOpenHelper(context);
+//        SQLiteDatabase musicDatabase = hlpr.getWritableDatabase();
+//
+//        Log.d("db path",musicDatabase.getPath());
+//
+//        File file = new File(musicDatabase.getPath());
+//        if(file.exists()) {
+//            file.delete();
+//        }
+
+//        ContentValues values = new ContentValues();
+//        values.put("data", "data1");
+//        musicDatabase.insert("mytable", null, values);
+
+        MusicData musicData = new MusicData();
+        musicData.artist = artist;
+        musicData.album = album;
+        musicData.trackName = track;
+
+        if(!isExist(musicData)){
+            musicData.save();
+        }
+    }
+
+    private boolean isExist(MusicData md){
+        return new Select().from(MusicData.class).where("artist = ? and album = ? and trackName = ?", md.artist, md.album, md.trackName).exists();
     }
 }
