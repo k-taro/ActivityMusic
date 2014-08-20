@@ -2,8 +2,16 @@ package com.keitaro.activitymusic;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.activeandroid.query.Select;
+import com.keitaro.activitymusic.databese.model.MusicData;
+
+import java.util.List;
 
 
 public class MyActivity extends Activity {
@@ -11,7 +19,20 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_my);
+
+        // ボタンをタップすると、データベース上の楽曲情報をログに表示する
+        Button b = (Button) this.findViewById(R.id.button1);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<MusicData> items = new Select().from(MusicData.class).execute();
+                for (MusicData i : items) {
+                    Log.d("musicdata", "id : " + i.getId() + ", track name : " + i.trackName);
+                }
+            }
+        });
     }
 
 
