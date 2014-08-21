@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +19,6 @@ import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.keitaro.activitymusic.callbacklistener.ActivityRecognitionClientCallbackListener;
-import com.keitaro.activitymusic.callbacklistener.LocationClientCallbackListener;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
 import com.keitaro.activitymusic.receiver.ActivityRecognitionReceiver;
@@ -42,11 +38,8 @@ public class MyActivity extends Activity {
 
         this.initButtonSetting();
 
-//        this.initLocationListener();
-
         this.initActivityRecognition(getApplicationContext());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,6 +60,9 @@ public class MyActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * デバッグ用のボタンの動作を設定する
+     */
     private void initButtonSetting(){
         // ボタンをタップすると、データベース上の楽曲情報をログに表示する
         Button b = (Button) this.findViewById(R.id.button1);
@@ -94,21 +90,10 @@ public class MyActivity extends Activity {
         });
     }
 
-    private void initLocationListener(){
-        LocationManager locationManager =
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
-        criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-
-        String provider = locationManager.getBestProvider(criteria, true);
-
-        Log.d("initLocation", "provider : " + provider);
-
-        locationManager.requestLocationUpdates(provider,10,0,new MyLocationListener());
-
-    }
-
+    /**
+     * 行動認識と位置情報を取得するための初期化
+     * @param context
+     */
     private void initActivityRecognition(Context context){
         ActivityRecognitionClientCallbackListener l = new ActivityRecognitionClientCallbackListener();
 
