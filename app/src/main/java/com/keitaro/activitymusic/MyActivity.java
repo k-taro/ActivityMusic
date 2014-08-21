@@ -14,11 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.keitaro.activitymusic.callbacklistener.ActivityRecognitionClientCallbackListener;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
 import com.keitaro.activitymusic.receiver.ActivityRecognitionReceiver;
@@ -26,7 +26,8 @@ import com.keitaro.activitymusic.receiver.ActivityRecognitionReceiver;
 import java.util.List;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends Activity
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     public GoogleApiClient mGoogleApiClient;
 
@@ -95,14 +96,13 @@ public class MyActivity extends Activity {
      * @param context
      */
     private void initActivityRecognition(Context context){
-        ActivityRecognitionClientCallbackListener l = new ActivityRecognitionClientCallbackListener();
 
         //final GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(ActivityRecognition.API)
                 .addApi(LocationServices.API)
-                .addConnectionCallbacks(l)
-                .addOnConnectionFailedListener(l)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .build();
 
         new Thread(){
@@ -122,9 +122,28 @@ public class MyActivity extends Activity {
 
                 LocationRequest locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setFastestInterval(500);
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, pendingIntent);
-
             }
         }.start();
+
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.d("ActivityRecognitionClientCallbackListener", "OnConnected");
+
+        if (bundle == null){
+            Log.d("ActivityRecognitionClientCallbackListener", "bundle is null!!");
+            return;
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
 }
