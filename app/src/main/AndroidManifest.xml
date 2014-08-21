@@ -32,6 +32,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.ActivityRecognitionReceiver">
+            <intent-filter>
+                <action android:name="ACTION_ACTIVITY_RECOGNITION"/>
+                <action android:name="ACTION_LOCATION_SERVICE" />
+            </intent-filter>
+        </receiver>
+
         <meta-data android:name="AA_DB_NAME" android:value="ActivityMusic.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
         <meta-data

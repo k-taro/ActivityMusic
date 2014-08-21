@@ -25,5 +25,13 @@
                 android:layout_height="wrap_content"
                 android:text="delete db"/>
         -->
+        <LinearLayout
+            android:id="@+id/data_display"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#444444"
+            android:padding="@dimen/activity_horizontal_margin"/>
+
     </LinearLayout>
 </RelativeLayout>

@@ -23,9 +23,14 @@ import java.util.Set;
  */
 public class MediaPlayerReceiver extends BroadcastReceiver{
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if( !( action.equals("com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED")
+                || action.equals("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED")
+                || action.equals("com.sonyericsson.music.TRACK_COMPLETED")) ){
+
+        }
         Bundle bundle = intent.getExtras();
 
         String album = bundle.getString("ALBUM_NAME");
@@ -57,7 +62,6 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
         builder.setWhen(System.currentTimeMillis());
         // 通知時の音・バイブ・ライト
         builder.setDefaults(Notification.DEFAULT_SOUND
-                | Notification.DEFAULT_VIBRATE
                 | Notification.DEFAULT_LIGHTS);
         // タップするとキャンセル(消える)
         builder.setAutoCancel(true);

@@ -26,7 +26,7 @@ public class LocationData extends Model{
     public double lon;
 
     @Column(name = "activity")
-    public String activity;
+    public int activity;
 
     // MusicData とのリレーション（？）
     public List<MusicData> musics() {
@@ -37,11 +37,11 @@ public class LocationData extends Model{
         super();
     }
 
-    public LocationData(long timestamp, int lat, int lon, String activety){
+    public LocationData(long timestamp, int lat, int lon, int activity){
         this.timestamp = timestamp;
         this.lat = lat;
         this.lon = lon;
-        this.activity = activety;
+        this.activity = activity;
     }
 
 }
