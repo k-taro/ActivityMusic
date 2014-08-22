@@ -15,6 +15,9 @@ import com.keitaro.activitymusic.receiver.ActivityRecognitionReceiver;
 
 /**
  * Created by user1 on 2014/08/21.
+ *
+ * 位置情報と楽曲情報を取得するために GoogleApiClient に接続するサービス。
+ * "サービスから GoogleApiClient に接続する"ことでアクティビティが死んでもデータを取得し続けることができる。
  */
 public class GoogleApiClientConnectService extends Service
         implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -36,35 +39,6 @@ public class GoogleApiClientConnectService extends Service
         return null;
     }
 
-//    @Override
-//    protected void onHandleIntent(Intent intent) {
-//
-//        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this.getApplicationContext())
-//                .addApi(ActivityRecognition.API)
-//                .addApi(LocationServices.API)
-//                .addConnectionCallbacks(this)
-//                .addOnConnectionFailedListener(this)
-//                .build();
-//
-//        googleApiClient.blockingConnect();
-//
-//        ActivityRecognitionReceiver.setGoogleApiClient(googleApiClient);
-//
-//        if(googleApiClient.isConnected()){
-//            Log.d("GoogleApiClientConnectService","client is Connected");
-//        }else{
-//            Log.d("GoogleApiClientConnectService","client is not Connected!!");
-//        }
-//
-//        //Intent i = new Intent(getApplicationContext(), ActivityRecognitionReceiver.class);
-//        Intent i = new Intent();
-//        i.setAction(ActivityRecognitionReceiver.ACTIVITY);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
-//
-//        ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(googleApiClient, 0, pendingIntent);
-//
-//    }
-
     @Override
     public void onConnected(Bundle bundle) {
 
@@ -80,6 +54,11 @@ public class GoogleApiClientConnectService extends Service
 
     }
 
+    /**
+     * GoogleApiClient に接続するためのスレッド
+     * GoogleApiClient#blockingConnect で接続する必要があるけど
+     * UI スレッド中ではブロッキング処理ができないため別スレッドで動かす。
+     */
     private class ConnectThread extends Thread{
         @Override
         public void run() {
