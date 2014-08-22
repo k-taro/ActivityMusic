@@ -28,6 +28,9 @@ public class LocationData extends Model{
     @Column(name = "activity")
     public int activity;
 
+    @Column(name = "accuracy")
+    public float accuracy;
+
     // MusicData とのリレーション（？）
     public List<MusicData> musics() {
         return getMany(MusicData.class, "id");
@@ -37,11 +40,12 @@ public class LocationData extends Model{
         super();
     }
 
-    public LocationData(long timestamp, int lat, int lon, int activity){
+    public LocationData(long timestamp, int lat, int lon, int activity, float accuracy){
         this.timestamp = timestamp;
         this.lat = lat;
         this.lon = lon;
         this.activity = activity;
+        this.accuracy = accuracy;
     }
 
 }

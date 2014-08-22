@@ -39,6 +39,8 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".service.GoogleApiClientConnectService"/>
+
         <meta-data android:name="AA_DB_NAME" android:value="ActivityMusic.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
         <meta-data
