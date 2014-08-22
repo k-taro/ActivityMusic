@@ -28,9 +28,10 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
 
         Bundle bundle = intent.getExtras();
 
-        String album = bundle.getString("ALBUM_NAME");
-        String artist = bundle.getString("ARTIST_NAME");
-        String track = bundle.getString("TRACK_NAME");
+        final String album = bundle.getString("ALBUM_NAME");
+        final String artist = bundle.getString("ARTIST_NAME");
+        final String track = bundle.getString("TRACK_NAME");
+        final String uri = bundle.getString("TRACK_URI");
 
         Log.d("receiveMusic", intent.getAction());
         //this.showBundleData(bundle);
@@ -39,6 +40,7 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
         musicData.artist = artist;
         musicData.album = album;
         musicData.trackName = track;
+        musicData.uri = uri;
 
         this.showNotification(context, musicData);
 
