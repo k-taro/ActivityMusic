@@ -1,7 +1,6 @@
 package com.keitaro.activitymusic;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,20 +15,14 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
-import com.keitaro.activitymusic.receiver.ActivityRecognitionReceiver;
+import com.keitaro.activitymusic.service.GoogleApiClientConnectService;
 
 import java.util.List;
 
 
-public class MyActivity extends Activity
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
-    public GoogleApiClient mGoogleApiClient;
+public class MyActivity extends Activity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +33,7 @@ public class MyActivity extends Activity
         this.initButtonSetting();
 
         this.initActivityRecognition(getApplicationContext());
+
     }
 
     @Override
@@ -70,13 +64,13 @@ public class MyActivity extends Activity
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayout display = (LinearLayout)findViewById(R.id.data_display);
+                LinearLayout display = (LinearLayout) findViewById(R.id.data_display);
                 display.removeAllViews();
                 List<LocationData> itmes = new Select().from(LocationData.class).execute();
-                for(LocationData i : itmes){
+                for (LocationData i : itmes) {
                     TextView tv = new TextView(getApplicationContext());
-                    tv.setText("id : " + i.getId() +", time : " + i.timestamp +", lat : " +  i.lat + ", lon : " + i.lon + ", activity : " + i.activity);
-                    Log.d("locdata", "id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", activity : " + i.activity);
+                    tv.setText("id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", accuracy : " + i.accuracy + ", activity : " + i.activity);
+                    Log.d("locdata", "id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", accuracy : " + i.accuracy + ", activity : " + i.activity);
                     display.addView(tv);
                 }
 
@@ -84,7 +78,7 @@ public class MyActivity extends Activity
                 for (MusicData i : items) {
                     TextView tv = new TextView(getApplicationContext());
                     tv.setText("id : " + i.getId() + ", track name : " + i.trackName);
-                    Log.d("musicdata","id : " + i.getId() + ", track name : " + i.trackName);
+                    Log.d("musicdata", "id : " + i.getId() + ", track name : " + i.trackName);
                     display.addView(tv);
                 }
             }
@@ -96,54 +90,9 @@ public class MyActivity extends Activity
      * @param context
      */
     private void initActivityRecognition(Context context){
-
-        //final GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(ActivityRecognition.API)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
-        new Thread(){
-            @Override
-            public void run(){
-                mGoogleApiClient.blockingConnect();
-
-                Intent intent = new Intent();
-                intent.setAction(ActivityRecognitionReceiver.ACTIVITY);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
-                ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(mGoogleApiClient, 0, pendingIntent);
-
-                intent = new Intent();
-                intent.setAction(ActivityRecognitionReceiver.LOCATION);
-                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
-                LocationRequest locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY).setFastestInterval(500);
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, pendingIntent);
-            }
-        }.start();
+        Intent intent = new Intent(this, GoogleApiClientConnectService.class);
+        this.startService(intent);
 
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.d("ActivityRecognitionClientCallbackListener", "OnConnected");
-
-        if (bundle == null){
-            Log.d("ActivityRecognitionClientCallbackListener", "bundle is null!!");
-            return;
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
 }
