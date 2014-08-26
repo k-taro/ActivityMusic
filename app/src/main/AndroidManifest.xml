@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="MyActivity"
+            android:name=".activity.MyActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +28,10 @@
                 <action android:name="com.sonyericsson.music.playbackcomplete" />
                 <action android:name="com.sonyericsson.music.playstatechanged" />
                 -->
+
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.playbackcomplete" />
 
             </intent-filter>
         </receiver>

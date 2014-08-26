@@ -26,15 +26,13 @@ public class LocationData extends Model{
     public double lon;
 
     @Column(name = "activity")
-    public int activity;
+    public Integer activity;
 
     @Column(name = "accuracy")
     public float accuracy;
 
-    // MusicData とのリレーション（？）
-    public List<MusicData> musics() {
-        return getMany(MusicData.class, "id");
-    }
+    @Column(name = "musicID", notNull = true)
+    public Long music_id;
 
     public LocationData(){
         super();
