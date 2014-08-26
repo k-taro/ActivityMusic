@@ -21,14 +21,18 @@ public class MusicData extends Model {
     @Column(name = "trackName")
     public String trackName;
 
+    @Column(name = "uri")
+    public String uri;
+
     public MusicData(){
         super();
     }
 
-    public MusicData(String artist, String album, String trackName){
+    public MusicData(String artist, String album, String trackName, String uri){
         this.artist = artist;
         this.album = album;
         this.trackName = trackName;
+        this.uri = uri;
     }
 
 }

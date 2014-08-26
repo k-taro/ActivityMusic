@@ -69,16 +69,18 @@ public class MyActivity extends Activity{
                 List<LocationData> itmes = new Select().from(LocationData.class).execute();
                 for (LocationData i : itmes) {
                     TextView tv = new TextView(getApplicationContext());
-                    tv.setText("id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", accuracy : " + i.accuracy + ", activity : " + i.activity);
-                    Log.d("locdata", "id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", accuracy : " + i.accuracy + ", activity : " + i.activity);
+                    String data = "id : " + i.getId() + ", time : " + i.timestamp + ", lat : " + i.lat + ", lon : " + i.lon + ", accuracy : " + i.accuracy + ", activity : " + i.activity;
+                    tv.setText(data);
+                    Log.d("locdata", data);
                     display.addView(tv);
                 }
 
                 List<MusicData> items = new Select().from(MusicData.class).execute();
                 for (MusicData i : items) {
                     TextView tv = new TextView(getApplicationContext());
-                    tv.setText("id : " + i.getId() + ", track name : " + i.trackName);
-                    Log.d("musicdata", "id : " + i.getId() + ", track name : " + i.trackName);
+                    String data = "id : " + i.getId() + ", artist : " + i.artist + ", album :" + i.album + ", track name : " + i.trackName + ", uri : " + i.uri;
+                    tv.setText(data);
+                    Log.d("musicdata", data);
                     display.addView(tv);
                 }
             }
