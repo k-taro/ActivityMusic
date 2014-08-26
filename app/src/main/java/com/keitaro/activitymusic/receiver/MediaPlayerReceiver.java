@@ -14,6 +14,7 @@ import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.databese.model.MusicData;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,30 +24,55 @@ import java.util.Set;
  */
 public class MediaPlayerReceiver extends BroadcastReceiver{
 
+    private static MusicData mMusicData;
+    public synchronized static MusicData getMusicData(){
+        return mMusicData;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Bundle bundle = intent.getExtras();
 
-        final String album = bundle.getString("ALBUM_NAME");
-        final String artist = bundle.getString("ARTIST_NAME");
-        final String track = bundle.getString("TRACK_NAME");
-        final String uri = bundle.getString("TRACK_URI");
+        String action = intent.getAction();
 
-        Log.d("receiveMusic", intent.getAction());
-        //this.showBundleData(bundle);
+        if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED")){
+            mMusicData = new MusicData();
+            mMusicData.album = bundle.getString("ALBUM_NAME");
+            mMusicData.artist = bundle.getString("ARTIST_NAME");
+            mMusicData.trackName = bundle.getString("TRACK_NAME");
+            mMusicData.uri = bundle.getString("TRACK_URI");
 
-        MusicData musicData = new MusicData();
-        musicData.artist = artist;
-        musicData.album = album;
-        musicData.trackName = track;
-        musicData.uri = uri;
-
-        this.showNotification(context, musicData);
-
-        if(!isExist(musicData)){
-            musicData.save();
+            if(!isExist(mMusicData)) {
+                mMusicData.save();
+            }
+        }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED")){
+            mMusicData = null;
+        }else if(action.equals("com.sonyericsson.music.TRACK_COMPLETED")){
+            mMusicData = null;
+        }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED")) {
+//            mMusicData = new MusicData();
+//            mMusicData.album = bundle.getString("album");
+//            mMusicData.artist = bundle.getString("artist");
+//            mMusicData.trackName = bundle.getString("track");
+//            //mMusicData.uri = bundle.getString("uri");
+//
+//
+//            if (!isExist(mMusicData)) {
+//                mMusicData.save();
+//            }
+            Set<String> key = bundle.keySet();
+            for(String str : key){
+                Log.d("key",str);
+            }
+        }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED")){
+            mMusicData = null;
+        }else if(action.equals("com.sonyericsson.music.TRACK_COMPLETED")){
+            mMusicData = null;
         }
+
+        //this.showNotification(context, musicData);
+
     }
 
     /**

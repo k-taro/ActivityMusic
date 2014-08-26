@@ -5,5 +5,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="drawerlisttitle_array">
+        <item>ホーム</item>
+        <item>曲ごとのデータ</item>
+        <item>行動ごとのデータ</item>
+        <item>場所ごとのデータ</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+
 
 </resources>

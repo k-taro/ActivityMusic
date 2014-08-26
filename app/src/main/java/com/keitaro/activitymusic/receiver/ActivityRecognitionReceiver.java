@@ -5,15 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 
+import com.activeandroid.query.Select;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.LocationServices;
-import com.keitaro.activitymusic.MyActivity;
 import com.keitaro.activitymusic.databese.model.LocationData;
+import com.keitaro.activitymusic.databese.model.MusicData;
 
 /**
  * Created by user1 on 2014/08/20.
@@ -76,6 +76,17 @@ public class ActivityRecognitionReceiver extends BroadcastReceiver {
             return;
         }
 
+        MusicData nowMusic = MediaPlayerReceiver.getMusicData();
+        if(nowMusic == null) return;
+
+        MusicData mdata = new Select().from(MusicData.class).where("artist = ? and album = ? and trackName = ?", nowMusic.artist, nowMusic.album, nowMusic.trackName).executeSingle();
+        Long musicID = null;
+        if(mdata == null){
+            return;
+        }
+        musicID = mdata.getId();
+//        result.getActivityConfidence(DetectedActivity.IN_VEHICLE);
+
         LocationData locationData = new LocationData();
 //        locationData.timestamp = location.getTime();  // 位置情報を取得した時刻を格納
         locationData.timestamp = System.currentTimeMillis(); // 位置情報を取得した時刻ではなくて現在の時刻を格納
@@ -83,6 +94,7 @@ public class ActivityRecognitionReceiver extends BroadcastReceiver {
         locationData.lon = location.getLongitude();
         locationData.activity = result.getMostProbableActivity().getType();
         locationData.accuracy = location.getAccuracy();
+        locationData.music_id = musicID;
         locationData.save(); // データベースに格納
     }
 
