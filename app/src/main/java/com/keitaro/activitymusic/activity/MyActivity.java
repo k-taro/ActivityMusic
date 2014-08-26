@@ -16,8 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.keitaro.activitymusic.fragment.HomeFragment;
 import com.keitaro.activitymusic.R;
+import com.keitaro.activitymusic.fragment.HomeFragment;
 import com.keitaro.activitymusic.service.GoogleApiClientConnectService;
 
 

@@ -1,7 +1,6 @@
 package com.keitaro.activitymusic.databese;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.databese.model.LocationData;

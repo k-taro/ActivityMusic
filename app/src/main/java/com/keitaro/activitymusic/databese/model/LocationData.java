@@ -4,9 +4,6 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 /**
  * Created by user1 on 2014/08/19.
  * 位置情報を表す Activeandroid 用データモデル

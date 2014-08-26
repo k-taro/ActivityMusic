@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user1 on 2014/08/25.
+ * Created by user1 on 2014/08/26.
  */
-public class HomeFragment extends Fragment {
+public class TrackDataFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    class GetRecentActivityTask extends AsyncTask{
+    class GetRecentActivityTask extends AsyncTask {
         private Context context;
         private LinearLayout linearLayout;
         private List<String> mList;
