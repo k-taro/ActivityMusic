@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
-import com.keitaro.activitymusic.util.ActivityTypeTranslater;
 
 import java.util.ArrayList;
 import java.util.List;
