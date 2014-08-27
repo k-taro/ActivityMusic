@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
@@ -29,37 +31,31 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, null);
 
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.list_recent_activity);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1);
+        ListView listView = (ListView) rootView.findViewById(R.id.list_recent_activity);
+        listView.setAdapter(arrayAdapter);
 
-        new GetRecentActivityTask(this.getActivity().getApplicationContext(), linearLayout).execute(new Object());
+        new GetRecentActivityTask(arrayAdapter).execute();
 
         return rootView;
     }
 
-    class GetRecentActivityTask extends AsyncTask{
-        private Context context;
-        private LinearLayout linearLayout;
-        private List<String> mList;
+    class GetRecentActivityTask extends AsyncTask<Void, Void, List<String>>{
+        private final ArrayAdapter<String> adapter;
 
-        public GetRecentActivityTask(Context context, LinearLayout linearLayout){
-            this.context = context;
-            this.linearLayout = linearLayout;
+        public GetRecentActivityTask(ArrayAdapter adapter){
+            this.adapter = adapter;
         }
 
         @Override
-        protected Object doInBackground(Object[] objects) {
-            mList = this.getRecentActivity();
-            return null;
+        protected List<String> doInBackground(Void... voids) {
+            return this.getRecentActivity();
         }
 
         @Override
-        protected void onPostExecute(Object o) {
-            for(String str : mList) {
-                TextView tv = new TextView(context);
-                tv.setTextSize(18);
-                tv.setText(str);
-                tv.setTextColor(Color.BLACK);
-                linearLayout.addView(tv);
+        protected void onPostExecute(List<String> list) {
+            for(String s : list) {
+                adapter.add(s);
             }
         }
 

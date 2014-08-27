@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="yellow">#ffffdf00</color>
+    <color name="yellow_light">#fffffdb2</color>
+    <color name="yellow_dark">#ffb69a00</color>
+    <color name="red">#ffba1401</color>
     <color name="main">#ff3c5fd1</color>
     <color name="main_light">#ffdcf1ff</color>
     <color name="main_dark">#ff1f306a</color>
-    <color name="light_gray">#ffdddddd</color>
     <color name="accent">#ffc95d07</color>
+
+    <color name="light_gray">#ffdddddd</color>
+    <color name="dark_gray">#ff333333</color>
 </resources>

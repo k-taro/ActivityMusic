@@ -11,10 +11,9 @@
         android:text="最近のアクティビティ"
         android:padding="16dp" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:id="@+id/list_recent_activity"></LinearLayout>
+        android:layout_height="fill_parent"
+        android:id="@+id/list_recent_activity"/>
+
 </LinearLayout>

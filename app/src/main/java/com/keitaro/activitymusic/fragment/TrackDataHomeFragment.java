@@ -211,7 +211,7 @@ public class TrackDataHomeFragment extends Fragment implements ActionBar.TabList
                     return new AlbumDataFragment();
                 case 1:
                     return new ArtistDataFragment();
-                case 3:
+                case 2:
                     return new TrackDataFragment();
                 default:
                     // The other sections of the app are dummy placeholders.

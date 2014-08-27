@@ -42,35 +42,43 @@ public class MediaPlayerReceiver extends BroadcastReceiver{
             mMusicData.trackName = bundle.getString("TRACK_NAME");
             mMusicData.uri = bundle.getString("TRACK_URI");
 
+
+
             if(!isExist(mMusicData)) {
                 mMusicData.save();
             }
-        }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED")){
-            mMusicData = null;
-        }else if(action.equals("com.sonyericsson.music.TRACK_COMPLETED")){
-            mMusicData = null;
-        }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED")) {
-//            mMusicData = new MusicData();
-//            mMusicData.album = bundle.getString("album");
-//            mMusicData.artist = bundle.getString("artist");
-//            mMusicData.trackName = bundle.getString("track");
-//            //mMusicData.uri = bundle.getString("uri");
-//
-//
-//            if (!isExist(mMusicData)) {
-//                mMusicData.save();
-//            }
             Set<String> key = bundle.keySet();
             for(String str : key){
-                Log.d("key",str);
+                Log.d("key",str + " : " + bundle.get(str));
             }
+
         }else if(action.equals("com.sonyericsson.music.playbackcontrol.ACTION_PAUSED")){
             mMusicData = null;
         }else if(action.equals("com.sonyericsson.music.TRACK_COMPLETED")){
             mMusicData = null;
+        }else if(action.equals("com.android.music.metachanged")) {
+//            mMusicData = null;
+//            Log.d("アクション",action);
+//            Set<String> key = bundle.keySet();
+//            for(String str : key){
+//                Log.d("key",str + " : " + bundle.get(str));
+//            }
+//        }else if(action.equals("com.android.music.playbackcomplete")){
+//            Log.d("アクション",action);
+//            mMusicData = null;
+//            Set<String> key = bundle.keySet();
+//            for(String str : key){
+//                Log.d("key",str + " : " + bundle.get(str));
+//            }
+//        }else if(action.equals("com.android.music.playstatechanged")){
+//                        Log.d("アクション",action);
+//            mMusicData = null;
+//            Set<String> key = bundle.keySet();
+//            for(String str : key){
+//                Log.d("key",str + " : " + bundle.get(str));
+//            }
+//
         }
-
-        //this.showNotification(context, musicData);
 
     }
 

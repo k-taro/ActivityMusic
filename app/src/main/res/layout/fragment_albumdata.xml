@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ListView
+<GridView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/list_trackdata">
+    android:layout_column="-1"
+    android:id="@+id/grid_albumdata">
 
-</ListView>
+</GridView>
