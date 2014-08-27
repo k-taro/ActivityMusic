@@ -1,4 +1,4 @@
-package com.keitaro.activitymusic.fragment;
+package com.keitaro.activitymusic.fragment.trackdata;
 
 import android.content.Context;
 import android.graphics.Color;

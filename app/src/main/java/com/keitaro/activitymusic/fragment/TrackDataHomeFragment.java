@@ -22,6 +22,9 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
+import com.keitaro.activitymusic.fragment.trackdata.AlbumDataFragment;
+import com.keitaro.activitymusic.fragment.trackdata.ArtistDataFragment;
+import com.keitaro.activitymusic.fragment.trackdata.TrackDataFragment;
 import com.keitaro.activitymusic.util.ActivityTypeTranslater;
 
 import java.util.ArrayList;
