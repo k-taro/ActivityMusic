@@ -14,7 +14,6 @@ import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.databese.model.MusicData;
 
-import java.util.List;
 import java.util.Set;
 
 /**

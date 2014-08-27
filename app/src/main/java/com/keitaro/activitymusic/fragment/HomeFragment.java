@@ -1,11 +1,10 @@
 package com.keitaro.activitymusic.fragment;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
-import com.google.android.gms.location.DetectedActivity;
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
+import com.keitaro.activitymusic.util.ActivityTypeTranslater;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Handler;
 
 /**
  * Created by user1 on 2014/08/25.
@@ -93,7 +90,7 @@ public class HomeFragment extends Fragment {
 
                     } else {
                         ret.add("緯度経度座標(" + locData.lat + ", " + locData.lon + ")周辺で"
-                                + getTypeName(locData.activity) + "に"
+                                + ActivityTypeTranslater.getTypeName(locData.activity) + "に"
                                 + musicData.trackName + "を聴いていました。");
                         index--;
                         break;
@@ -101,25 +98,6 @@ public class HomeFragment extends Fragment {
                 }
             }
             return ret;
-        }
-
-
-        private String getTypeName(int activityType) {
-            switch(activityType) {
-                case DetectedActivity.IN_VEHICLE:
-                    return "車で移動中";
-                case DetectedActivity.ON_BICYCLE:
-                    return "自転車で移動中";
-                case DetectedActivity.ON_FOOT:
-                    return "徒歩で移動中";
-                case DetectedActivity.STILL:
-                    return "待機中";
-                case DetectedActivity.UNKNOWN:
-                    return "不明な行動中";
-                case DetectedActivity.TILTING:
-                    return "デバイスが傾き中";
-            }
-            return null;
         }
     }
 }

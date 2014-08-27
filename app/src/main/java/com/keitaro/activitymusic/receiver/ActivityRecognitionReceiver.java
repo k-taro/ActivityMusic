@@ -10,10 +10,10 @@ import android.util.Log;
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognitionResult;
-import com.google.android.gms.location.DetectedActivity;
 import com.google.android.gms.location.LocationServices;
 import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
+import com.keitaro.activitymusic.util.ActivityTypeTranslater;
 
 /**
  * Created by user1 on 2014/08/20.
@@ -68,7 +68,7 @@ public class ActivityRecognitionReceiver extends BroadcastReceiver {
      * @param result 行動認識の結果
      */
     private void saveActvtyRecgResult(ActivityRecognitionResult result, Location location){
-        Log.d("LocationServeceReceiverReceiver", this.getTypeName(result.getMostProbableActivity().getType()));
+        Log.d("LocationServeceReceiverReceiver", ActivityTypeTranslater.getTypeName(result.getMostProbableActivity().getType()));
 
         if(this.tmpLocData == null){
             Log.d("LocationServeceReceiverReceiver", "loc is null!!");
@@ -96,24 +96,6 @@ public class ActivityRecognitionReceiver extends BroadcastReceiver {
         locationData.accuracy = location.getAccuracy();
         locationData.music_id = musicID;
         locationData.save(); // データベースに格納
-    }
-
-    private String getTypeName(int activityType) {
-        switch(activityType) {
-            case DetectedActivity.IN_VEHICLE:
-                return "車で移動中";
-            case DetectedActivity.ON_BICYCLE:
-                return "自転車で移動中";
-            case DetectedActivity.ON_FOOT:
-                return "徒歩で移動中";
-            case DetectedActivity.STILL:
-                return "待機中";
-            case DetectedActivity.UNKNOWN:
-                return "不明";
-            case DetectedActivity.TILTING:
-                return "デバイスが傾き中";
-        }
-        return null;
     }
 
 }

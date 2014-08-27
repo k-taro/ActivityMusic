@@ -1,8 +1,8 @@
 package com.keitaro.activitymusic.activity;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,12 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.keitaro.activitymusic.fragment.HomeFragment;
 import com.keitaro.activitymusic.R;
+import com.keitaro.activitymusic.fragment.HomeFragment;
+import com.keitaro.activitymusic.fragment.TrackDataHomeFragment;
 import com.keitaro.activitymusic.service.GoogleApiClientConnectService;
 
 
-public class MyActivity extends Activity{
+public class MyActivity extends FragmentActivity{
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -159,8 +160,7 @@ public class MyActivity extends Activity{
 
     @Override
     public void setTitle(CharSequence title){
-        mTitle = (String) title;
-        getActionBar().setTitle(mTitle);
+        getActionBar().setTitle(title);
     }
 
     private void selectItem(int position) {
@@ -171,6 +171,8 @@ public class MyActivity extends Activity{
                 fragment = new HomeFragment();
                 break;
             case 1:
+                fragment = new TrackDataHomeFragment();
+                break;
             case 2:
             case 3:
             default:
@@ -180,14 +182,15 @@ public class MyActivity extends Activity{
 
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
-        setTitle(mDrawerItemTitles[position]);
+        mTitle = mDrawerItemTitles[position];
+//        setTitle(mTitle);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
