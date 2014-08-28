@@ -1,5 +1,7 @@
 package com.keitaro.activitymusic.databese.model;
 
+import android.graphics.Bitmap;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -21,18 +23,18 @@ public class MusicData extends Model {
     @Column(name = "trackName")
     public String trackName;
 
-    @Column(name = "uri")
-    public String uri;
+    @Column(name = "artwork")
+    public byte[] artwork;
 
     public MusicData(){
         super();
     }
 
-    public MusicData(String artist, String album, String trackName, String uri){
+    public MusicData(String artist, String album, String trackName, byte[] artwork){
         this.artist = artist;
         this.album = album;
         this.trackName = trackName;
-        this.uri = uri;
+        this.artwork = artwork;
     }
 
 }

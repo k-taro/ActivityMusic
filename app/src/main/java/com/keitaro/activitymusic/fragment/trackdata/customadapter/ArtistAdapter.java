@@ -13,17 +13,18 @@ import android.widget.TextView;
 
 import com.keitaro.activitymusic.R;
 import com.keitaro.activitymusic.fragment.trackdata.customadapter.model.Album;
+import com.keitaro.activitymusic.fragment.trackdata.customadapter.model.Artist;
 
 import java.io.ByteArrayInputStream;
 
 /**
- * Created by user1 on 2014/08/27.
+ * Created by user1 on 2014/08/28.
  */
-public class AlbumAdapter extends ArrayAdapter<Album> {
+public class ArtistAdapter extends ArrayAdapter<Artist> {
 
     private final int resourceId;
 
-    public AlbumAdapter(Context context) {
+    public ArtistAdapter(Context context) {
         super(context, R.layout.item_albumdata);
         this.resourceId = R.layout.item_albumdata;
     }
@@ -36,16 +37,15 @@ public class AlbumAdapter extends ArrayAdapter<Album> {
             convertView = inflater.inflate(resourceId, null);
         }
 
-        Album album = getItem(position);
+        Artist artist = getItem(position);
 
         TextView tv = (TextView) convertView.findViewById(R.id.album_name);
-        tv.setText(album.getName());
+        tv.setText(artist.getName());
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.album_artwork);
-        Bitmap artwork = BitmapFactory.decodeStream(new ByteArrayInputStream(album.getArtwork()));
+        Bitmap artwork = BitmapFactory.decodeStream(new ByteArrayInputStream(artist.getArtwork()));
         imageView.setImageBitmap(artwork);
 
         return convertView;
     }
-
 }

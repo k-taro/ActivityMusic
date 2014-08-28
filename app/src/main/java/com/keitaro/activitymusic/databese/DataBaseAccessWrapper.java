@@ -21,8 +21,8 @@ public class DataBaseAccessWrapper {
 
         List<MusicData> items = new Select().from(MusicData.class).execute();
         for (MusicData i : items) {
-            String data = "id : " + i.getId() + ", artist : " + i.artist + ", album :" + i.album + ", track name : " + i.trackName + ", uri : " + i.uri;
-            Log.d("musicdata", data);
+//            String data = "id : " + i.getId() + ", artist : " + i.artist + ", album :" + i.album + ", track name : " + i.trackName + ", uri : " + i.uri;
+//            Log.d("musicdata", data);
         }
         return null;
     }

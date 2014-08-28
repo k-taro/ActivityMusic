@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.keitaro.activitymusic.R;
+import com.keitaro.activitymusic.fragment.ActivityDataHomeFragment;
 import com.keitaro.activitymusic.fragment.HomeFragment;
 import com.keitaro.activitymusic.fragment.TrackDataHomeFragment;
 import com.keitaro.activitymusic.service.GoogleApiClientConnectService;
@@ -174,6 +175,8 @@ public class MyActivity extends FragmentActivity{
                 fragment = new TrackDataHomeFragment();
                 break;
             case 2:
+                fragment = new ActivityDataHomeFragment();
+                break;
             case 3:
             default:
                 fragment = new HomeFragment();

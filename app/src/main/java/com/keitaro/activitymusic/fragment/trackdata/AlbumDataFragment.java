@@ -5,28 +5,21 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
-import com.keitaro.activitymusic.databese.model.LocationData;
 import com.keitaro.activitymusic.databese.model.MusicData;
 import com.keitaro.activitymusic.fragment.trackdata.customadapter.AlbumAdapter;
 import com.keitaro.activitymusic.fragment.trackdata.customadapter.model.Album;
-import com.keitaro.activitymusic.util.ActivityTypeTranslater;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by user1 on 2014/08/26.
@@ -69,45 +62,12 @@ public class AlbumDataFragment extends Fragment{
 
         private List<Album> getRecentActivity() {
 
-            List<MusicData> albumList = new Select().from(MusicData.class).execute();
+            List<MusicData> albumList = new Select().from(MusicData.class).where("album IN (" + new Select("DISTINCT album").from(MusicData.class).toSql() + ")").execute();
             List<Album> ret = new ArrayList<Album>();
 
             for(MusicData musicData : albumList){
-
-                ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
-                String[] columns = new String[]{
-                        MediaStore.Audio.Albums._ID,
-                        MediaStore.Audio.Albums.ALBUM,
-                        MediaStore.Audio.Albums.ARTIST,
-                        MediaStore.Audio.Albums.ALBUM_ART
-                };
-
-                Cursor cursor = cr.query(
-                        MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
-                        columns,
-                        MediaStore.Audio.Albums.ALBUM + "=? and "+MediaStore.Audio.Albums.ARTIST + "=?",
-                        new String[]{musicData.album, musicData.artist},
-                        null
-                );
-
-                if(cursor.moveToFirst()) {
-                    String albumArtPath = cursor.getString(cursor.getColumnIndex( MediaStore.Audio.Albums.ALBUM_ART));
-                    ret.add(new Album(musicData.album,musicData.artist,albumArtPath));
-                    do {
-                        String albumArt = cursor.getString(cursor.getColumnIndex( MediaStore.Audio.Albums.ALBUM_ART));
-                        Log.d("albumArt",albumArt);
-                    } while (cursor.moveToNext());
-                }else{
-                    Log.d("hogehogehoge", "cursor is not hogehoge");
-                }
-
+                ret.add(new Album(musicData.album,musicData.artist,musicData.artwork));
             }
-
-//            List<MusicData> albumList = new Select("DISTINCT album").from(MusicData.class).execute();
-//            List<MusicData> albumList = new Select().from(MusicData.class).execute();
-//            for(MusicData musicData : albumList){
-//                ret.add(new Album(musicData.album, musicData.artist, musicData.uri));
-//            }
 
             return ret;
         }

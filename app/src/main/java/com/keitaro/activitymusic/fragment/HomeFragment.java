@@ -1,7 +1,5 @@
 package com.keitaro.activitymusic.fragment;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.keitaro.activitymusic.R;
@@ -62,7 +58,7 @@ public class HomeFragment extends Fragment {
         private List<String> getRecentActivity() {
             List<String> ret = new ArrayList<String>();
 
-            List<LocationData> locList = new Select().from(LocationData.class).orderBy("ID DESC").execute();
+            List<LocationData> locList = new Select().from(LocationData.class).orderBy("timestamp DESC").execute();
 
             int index = 0;
 
